@@ -1,2 +1,18 @@
-<p>dashboard works!</p>
-<div class="poentjab"></div>
+<div class="dashboard">
+  <div class="dashboard__balance">balance here</div>
+  <div class="dashboard__budget-overview">
+    <div>
+      <input type="text" placeholder="Add income" class="input input-bordered" />
+      <button class="btn bg-success">Add</button>
+      <app-income-list [incomeItems]="incomeService.incomeList()"></app-income-list>
+    </div>
+    <div>
+      <input type="text" placeholder="Add expense" class="input input-bordered" />
+      <button class="btn bg-error">Add</button>
+    </div>
+    <div>
+      <input type="text" placeholder="Add saving" class="input input-bordered" />
+      <button class="btn bg-info">Add</button>
+    </div>
+  </div>
+</div>
