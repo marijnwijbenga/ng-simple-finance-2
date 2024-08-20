@@ -11,5 +11,6 @@ import { TransactionItemInterface } from '../../../interfaces/transaction/transa
   templateUrl: './income-list-item.component.html',
 })
 export class IncomeListItemComponent {
- @Input({required: true }) public incomeItem!: TransactionItemInterface;
+  @Input({ required: true }) public incomeItem!: TransactionItemInterface;
+
 }

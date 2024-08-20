@@ -1,7 +1,8 @@
-<app-list-item class="bg-green-200 text-green-900">
-  <div>{{ incomeItem.name }}</div>
+<app-list-item
+  class="bg-green-200 text-green-900 hover:bg-green-300 cursor-pointer"
+>
+  <div class="max-w-52">{{ incomeItem.name }}</div>
   <div>
-    {{ incomeItem.currency === 'euro' ? '&euro;' : '&dollar;' }}
-    {{ incomeItem.amount }}
+    &euro; {{ incomeItem.amount }}
   </div>
 </app-list-item>

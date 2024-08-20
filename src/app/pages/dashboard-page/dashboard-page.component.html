@@ -1,0 +1,27 @@
+<div class="flex flex-col">
+  <div class="flex flex-row justify-center mb-2">balance here</div>
+  <div class="flex flex-row justify-around flex-wrap">
+    <div class="min-w-min">
+      <app-income-form></app-income-form>
+      <app-income-list
+        [incomeItems]="incomeService.incomeList()"
+        (clickItem)="onShowIncomeModal($event)"
+      ></app-income-list>
+      <app-income-total></app-income-total>
+    </div>
+    <div>
+      <input type="text" placeholder="Add expense" class="input input-bordered" />
+      <button class="btn bg-error">Add</button>
+    </div>
+    <div>
+      <input type="text" placeholder="Add saving" class="input input-bordered" />
+      <button class="btn bg-info">Add</button>
+    </div>
+  </div>
+</div>
+<!-- -->
+<app-income-modal
+  *ngIf="showIncomeModal()"
+  [incomeIndex]="selectedIncomeIndex()!"
+  (closeModal)="onCloseModal()"
+></app-income-modal>

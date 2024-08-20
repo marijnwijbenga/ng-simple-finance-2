@@ -1,0 +1,15 @@
+<form (ngSubmit)="onSubmit($event)" class="flex flex-col mb-3">
+  <div>
+    <input
+      type="text"
+      placeholder="Income; amount"
+      class="input input-bordered"
+      [ngClass]="{'border-red-600 ring-red-600' : formInputError}"
+      [formControl]="incomeControl"
+    />
+    <button class="btn bg-success" type="submit">Add</button>
+  </div>
+  <div *ngIf="formInputError" class="bg-red-100 text-red-800 p-2 my-3 w-[17rem]">
+    <strong>Error</strong> please input as: <strong>name; number</strong> (Selling flowers; 300)
+  </div>
+</form>

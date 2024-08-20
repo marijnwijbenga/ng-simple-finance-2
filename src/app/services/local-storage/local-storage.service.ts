@@ -18,8 +18,7 @@ export class LocalStorageService {
     }
 
     try {
-      const decryptedData = this.decrypt(data);
-      return JSON.parse(decryptedData);
+      return this.decrypt(data);
     } catch (error) {
       console.error('Error parsing JSON from localStorage:', error);
       return null;
@@ -28,7 +27,7 @@ export class LocalStorageService {
   }
 
   public setLocalStorage(key: string, value: any) {
-    localStorage.setItem(key, this.encrypt(JSON.stringify(value)));
+    localStorage.setItem(key, this.encrypt(value));
   }
 
   public removeLocalStorage(key: string) {
