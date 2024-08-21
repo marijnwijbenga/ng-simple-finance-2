@@ -16,23 +16,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class IncomeModalComponent implements OnInit {
   @Output() public closeModal = new EventEmitter<boolean>();
-  @Input({required: true}) public incomeIndex!: number;
+  @Input({ required: true }) public incomeIndex!: number;
 
   incomeService = inject(IncomeService);
 
   ngOnInit(): void {
-    const income = this.incomeService.getIncome(this.incomeIndex);
-    if (income) {
-      this.incomeForm.patchValue({
-        incomeName: income.name,
-        incomeAmount: income.amount,
-        incomeRecurringSchema: {
-          interval: income.recurringSchema?.interval,
-          startDate: income.recurringSchema?.startDate,
-          endDate: income.recurringSchema?.endDate,
-        }
-      });
-    }
+    this.populateForm();
   }
 
   onCloseModal(): void {
@@ -42,26 +31,36 @@ export class IncomeModalComponent implements OnInit {
   incomeForm: FormGroup = new FormGroup({
     incomeName: new FormControl('', Validators.required),
     incomeAmount: new FormControl(0, Validators.required),
-    incomeRecurringSchema: new FormGroup({
-      interval: new FormControl(''),
-      startDate: new FormControl(''),
-      endDate: new FormControl(''),
-    })
+    incomeInterval: new FormControl(''),
   });
 
-  onSubmit():void {
+  onSubmit(): void {
     this.incomeService.patchIncome(this.incomeIndex, {
       name: this.incomeForm.get('incomeName')?.value,
       amount: this.incomeForm.get('incomeAmount')?.value,
-      recurringSchema: {
-        interval: this.incomeForm.get('incomeRecurringSchema.interval')?.value,
-        startDate: this.incomeForm.get('incomeRecurringSchema.startDate')?.value,
-        endDate: this.incomeForm.get('incomeRecurringSchema.endDate')?.value,
-      }
+      recurringInterval: this.incomeForm.get('incomeInterval')?.value,
     });
 
-    console.log(this.incomeForm.value);
-
     this.onCloseModal();
+  }
+
+  populateForm(): void {
+    const income = this.incomeService.getIncome(this.incomeIndex);
+
+    if (income.name) {
+      this.incomeForm.patchValue({
+        incomeName: income.name,
+      });
+    }
+    if(income.amount) {
+      this.incomeForm.patchValue({
+      incomeAmount: income.amount
+      });
+    }
+    if(income.recurringInterval) {
+      this.incomeForm.patchValue({
+        incomeInterval: income.recurringInterval,
+      })
+    }
   }
 }

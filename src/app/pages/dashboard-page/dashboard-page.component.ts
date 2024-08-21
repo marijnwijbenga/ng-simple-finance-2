@@ -31,7 +31,6 @@ export class DashboardPageComponent {
   selectedIncomeIndex: WritableSignal<number | null> = signal(null);
 
   onShowIncomeModal($event: number) {
-    console.log($event);
     this.selectedIncomeIndex.set($event)
     this.showIncomeModal.set(true);
   }

@@ -11,7 +11,7 @@ import { UtilityService } from '../../../services/utility/utility.service';
     FormsModule,
     ReactiveFormsModule,
     NgIf,
-    NgClass,
+    NgClass
   ],
   templateUrl: './income-form.component.html',
 })
@@ -31,7 +31,6 @@ export class IncomeFormComponent {
     if (!parsed) {
       // show input error message
       this.formInputError = true;
-      console.error('wrong input format');
       return;
     }
 

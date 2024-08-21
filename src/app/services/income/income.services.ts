@@ -1,6 +1,7 @@
 import { computed, effect, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { TransactionItemInterface } from '../../interfaces/transaction/transaction-item.interface';
 import { LocalStorageService } from '../local-storage/local-storage.service';
+import { UtilityService } from '../utility/utility.service';
 
 
 @Injectable({
@@ -10,7 +11,10 @@ export class IncomeService {
 
   // todo get and store data to/from localStorage
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(
+    private localStorageService: LocalStorageService,
+    private utilityService: UtilityService,
+  ) {
     // for testing purposes
     // this.localStorageService.removeLocalStorage('SFIncomeList');
     //
@@ -18,14 +22,17 @@ export class IncomeService {
     //   {
     //     name: 'Webdev job',
     //     amount: 5500,
+    //     recurringInterval: 'monthly'
     //   },
     //   {
     //     name: 'guitar lessons',
     //     amount: 200,
+    //     recurringInterval: 'monthly'
     //   },
     //   {
     //     name: 'gitaria platform',
     //     amount: 20000,
+    //     recurringInterval: 'monthly'
     //   }
     // ]);
 
@@ -38,17 +45,19 @@ export class IncomeService {
 
   public readonly incomeList = this.#incomeList.asReadonly();
 
-  public getIncome(incomeIndex: number) {
+  public getIncome(incomeIndex: number): TransactionItemInterface {
     return this.incomeList()[incomeIndex];
   }
 
   public addIncome(income: TransactionItemInterface): void {
+    if(!income.recurringInterval) {
+      income.recurringInterval = 'monthly';
+    }
     const newIncomeList = [...this.#incomeList(), income];
     this.#incomeList.set(newIncomeList);
   }
 
   public patchIncome(id: number, income: TransactionItemInterface): void {
-    console.log(income);
     this.#incomeList.update(incomeItems => {
       const newIncomeList = [...incomeItems];
       newIncomeList[id] = income;
@@ -65,7 +74,11 @@ export class IncomeService {
   }
 
   incomeTotal: Signal<number> = computed(() => {
-    return this.#incomeList().reduce((accumulator, incomeItem) => accumulator + incomeItem.amount, 0);
+    return this.#incomeList().reduce(
+      (accumulator, incomeItem) => {
+        return accumulator + this.utilityService.calculateMonthlyAmount(incomeItem)
+      }, 0
+     )
   });
 
   private triggerLocalStorageWrites() {
@@ -78,6 +91,5 @@ export class IncomeService {
   // for testing purposes
   private seedLocalStorage(incomes: TransactionItemInterface[]): void {
     this.localStorageService.setLocalStorage('SFIncomeList', JSON.stringify(incomes));
-    console.log('populate storage reached');
   }
 }

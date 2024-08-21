@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TransactionItemInterface } from '../../interfaces/transaction/transaction-item.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -22,4 +23,23 @@ export class UtilityService {
     return [stringPart, numberPart];
   }
 
+
+  calculateMonthlyAmount(transaction: TransactionItemInterface): number {
+    switch (transaction.recurringInterval) {
+      case 'daily':
+        return transaction.amount * 30.5;
+      case 'biweekly':
+        return transaction.amount * 8.66;
+      case 'weekly':
+        return transaction.amount * 4.33;
+      case 'bimonthly':
+        return transaction.amount * 2;
+      case 'biyearly':
+        return transaction.amount * (2 / 12);
+      case 'yearly':
+        return transaction.amount * (1 / 12);
+      default:
+        return transaction.amount; // Assuming no recurrence means monthly
+    }
+  }
 }

@@ -1,8 +1,18 @@
 <app-list-item
   class="bg-green-200 text-green-900 hover:bg-green-300 cursor-pointer"
 >
-  <div class="max-w-52">{{ incomeItem.name }}</div>
+  <div class="max-w-52">
+    <span>{{ incomeItem.name }}</span>
+
+  </div>
+<!--  <div>-->
+<!--    <span class="label-text text-green-500">-->
+<!--       {{ incomeItem.recurringInterval }}-->
+<!--    </span>-->
+<!--  </div>-->
   <div>
-    &euro; {{ incomeItem.amount }}
+    <span>
+      &euro; {{ incomeItem.amount }}
+    </span>
   </div>
 </app-list-item>

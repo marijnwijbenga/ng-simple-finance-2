@@ -1,23 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { ModalComponent } from './modal.component';
-
+import spyOn = jest.spyOn;
 describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+  let spectator: Spectator<ModalComponent>;
+  const createComponent = createComponentFactory(ModalComponent);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ModalComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ModalComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should emit closeModal event when onModalClose is called', () => {
+    const emitSpy = spyOn(spectator.component.closeModal, 'emit');
+    const modalSpy = spyOn(spectator.component, 'onModalClose');
+
+    const outerDiv = spectator.queryAll('div')[0];
+    spectator.click(outerDiv);
+
+    expect(emitSpy).toHaveBeenCalledWith(true);
+    expect(modalSpy).toHaveBeenCalled();
   });
 });

@@ -1,16 +1,17 @@
-import { TestBed } from '@angular/core/testing';
-
 import { CurrencyService } from './currency.service';
+import { mockProvider, SpectatorService, createServiceFactory } from '@ngneat/spectator/jest';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 describe('CurrencyService', () => {
-  let service: CurrencyService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(CurrencyService);
+  let spectator: SpectatorService<CurrencyService>;
+  const createService = createServiceFactory({
+    service: CurrencyService,
+    providers: [
+      mockProvider(LocalStorageService),
+    ],
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  beforeEach(() => {
+    spectator = createService();
   });
 });
