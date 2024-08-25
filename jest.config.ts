@@ -12,6 +12,7 @@ const config: Config = {
     '/node_modules/(?!flat)/', // Exclude modules except 'flat' from transformation
   ],
   moduleDirectories: ['node_modules', 'src'],
+  testPathIgnorePatterns: ["<rootDir>/e2e-tests/"],
 };
 
 export default config;

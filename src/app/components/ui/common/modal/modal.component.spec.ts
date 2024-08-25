@@ -1,6 +1,7 @@
 import { Spectator, createComponentFactory } from '@ngneat/spectator/jest';
 import { ModalComponent } from './modal.component';
 import spyOn = jest.spyOn;
+
 describe('ModalComponent', () => {
   let spectator: Spectator<ModalComponent>;
   const createComponent = createComponentFactory(ModalComponent);

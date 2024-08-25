@@ -13,17 +13,10 @@ export class LocalStorageService {
     const data = localStorage.getItem(key);
 
     if (!data) {
-      console.warn(`No data found for key: ${key}`);
       return null;
     }
 
-    try {
-      return this.decrypt(data);
-    } catch (error) {
-      console.error('Error parsing JSON from localStorage:', error);
-      return null;
-    }
-
+    return this.decrypt(data);
   }
 
   public setLocalStorage(key: string, value: any) {

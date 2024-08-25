@@ -1,23 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ListItemComponent } from './list-item.component';
+import { createComponentFactory, Spectator} from '@ngneat/spectator/jest';
 
 describe('ListItemComponent', () => {
-  let component: ListItemComponent;
-  let fixture: ComponentFixture<ListItemComponent>;
+  let spectator: Spectator<ListItemComponent>;
+  const createComponent = createComponentFactory(ListItemComponent);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ListItemComponent]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ListItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(spectator.component).toBeTruthy();
   });
+
 });

@@ -1,23 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { IncomeListItemComponent } from './income-list-item.component';
+import { Spectator } from '@ngneat/spectator';
+import { createComponentFactory } from '@ngneat/spectator/jest';
 
 describe('IncomeListItemComponent', () => {
-  let component: IncomeListItemComponent;
-  let fixture: ComponentFixture<IncomeListItemComponent>;
+ let spectator: Spectator<IncomeListItemComponent>;
+ const createComponent = createComponentFactory(IncomeListItemComponent);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [IncomeListItemComponent]
-    })
-    .compileComponents();
+ beforeEach(() => {
+   spectator = createComponent({
+     props: {
+       incomeItem: {
+         name: 'test name',
+         amount: 200,
+         recurringInterval: 'monthly',
+       }
+     }
+   });
+ });
 
-    fixture = TestBed.createComponent(IncomeListItemComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+ it('should create the component', () => {
+   expect(spectator.component).toBeTruthy();
+ })
 });

@@ -9,8 +9,6 @@ import { UtilityService } from '../utility/utility.service';
 })
 export class IncomeService {
 
-  // todo get and store data to/from localStorage
-
   constructor(
     private localStorageService: LocalStorageService,
     private utilityService: UtilityService,
@@ -36,10 +34,12 @@ export class IncomeService {
     //   }
     // ]);
 
-    this.loadIncomeFromLocalStorage();
+    this.loadIncomeFromLocalStorage('SFIncomeList');
 
-    this.triggerLocalStorageWrites();
+    this.setupLocalStorageWriteTrigger('SFIncomeList');
   }
+
+  serviceInitialized = false;
 
   #incomeList: WritableSignal<TransactionItemInterface[]> = signal<TransactionItemInterface[]>([]);
 
@@ -65,31 +65,38 @@ export class IncomeService {
     })
   }
 
-  private loadIncomeFromLocalStorage() {
-    const incomesFromLocalStorage = this.localStorageService.getLocalStorage('SFIncomeList');
-    const storedIncomeList =  JSON.parse(incomesFromLocalStorage || '') as unknown as TransactionItemInterface[];
-    if(storedIncomeList) {
-      this.#incomeList.set(storedIncomeList)
+  private loadIncomeFromLocalStorage(localStorageKey: string): void {
+    const incomesFromLocalStorage = this.localStorageService.getLocalStorage(localStorageKey);
+    if(incomesFromLocalStorage) {
+      const storedIncomeList =  JSON.parse(incomesFromLocalStorage) as unknown as TransactionItemInterface[];
+
+      if(storedIncomeList) {
+        this.#incomeList.set(storedIncomeList)
+      }
     }
   }
 
   incomeTotal: Signal<number> = computed(() => {
+    const startAtNumber = 0;
     return this.#incomeList().reduce(
       (accumulator, incomeItem) => {
         return accumulator + this.utilityService.calculateMonthlyAmount(incomeItem)
-      }, 0
+      }, startAtNumber
      )
   });
 
-  private triggerLocalStorageWrites() {
+  private setupLocalStorageWriteTrigger(localStorageKey: string) {
     effect(() => {
       const incomeList = this.#incomeList();
-      this.localStorageService.setLocalStorage('SFIncomeList', JSON.stringify(incomeList));
+      if(this.serviceInitialized) {
+        this.localStorageService.setLocalStorage(localStorageKey, JSON.stringify(incomeList));
+      }
+      this.serviceInitialized = true;
     });
   }
 
   // for testing purposes
-  private seedLocalStorage(incomes: TransactionItemInterface[]): void {
-    this.localStorageService.setLocalStorage('SFIncomeList', JSON.stringify(incomes));
-  }
+  // private seedLocalStorage(incomes: TransactionItemInterface[]): void {
+  //   this.localStorageService.setLocalStorage('SFIncomeList', JSON.stringify(incomes));
+  // }
 }

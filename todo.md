@@ -15,9 +15,11 @@
 - [ ] build expense modal feature
 - [ ] make everything responsive
 - [ ] setup sonarqube and ci/cd with render.com hosting (auto builds etc)
+- [ ] write playwright e2e tests for dashboard page
 
 
 ## backlog
 - [ ] implement export and import save file
+- [ ] implement proper date cycle calcs (not the averages you have now)
 - [ ] implement currency conversion feature with
   https://exchangeratesapi.io/ (rxjs with loaders)
