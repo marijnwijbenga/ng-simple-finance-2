@@ -6,6 +6,7 @@ const angular = require("angular-eslint");
 module.exports = tseslint.config(
   {
     files: ["**/*.ts"],
+    ignores: ["src/app/app.config.ts", "node_modules", "dist", "e2e-tests/**/*"],
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.recommended,
@@ -31,7 +32,6 @@ module.exports = tseslint.config(
         },
       ],
     },
-    ignores: ["src/app/app.config.ts", "node_modules", "dist"],
   },
   {
     files: ["src/app/**/*.html"],

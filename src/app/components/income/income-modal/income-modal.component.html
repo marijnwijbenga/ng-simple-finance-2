@@ -1,0 +1,46 @@
+<app-modal (closeModal)="onCloseModal()">
+  <div class="px-6 pt-4 pb-2 bg-green-50">
+    <h2 class="text-2xl text-green-800">Edit income</h2>
+  </div>
+  <div class="px-6  pt-2 pb-4 bg-green-50 h-full w-full">
+    <form [formGroup]="incomeForm" class="flex flex-col gap-2" (ngSubmit)="onSubmit()">
+      <label
+        class="input input-bordered flex items-center gap-2 font-semibold text-green-800">
+        Name
+        <input
+          type="text" class="grow text-black font-normal "
+          formControlName="incomeName"
+        />
+      </label>
+
+      <label class="input input-bordered flex items-center gap-2 font-bold text-green-800">
+        &euro;
+        <input
+          type="number"
+          class="grow text-black font-normal"
+          formControlName="incomeAmount" />
+      </label>
+
+        <select
+          class="select select-success w-full max-w-xs font-normal text-black"
+          formControlName="incomeInterval"
+        >
+          <option disabled [defaultSelected]="!incomeService.getIncome(incomeIndex).recurringInterval">Repeats</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="bi-weekly">Bi-Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="bi-monthly">Bi-Monthly</option>
+          <option value="yearly">Yearly</option>
+          <option value="bi-yearly">Bi-yearly</option>
+        </select>
+
+      <div class="flex flex-row my-4">
+        <button type="reset" class="btn btn-outline btn-secondary w-1/2" (click)="onCloseModal()">Cancel</button>
+        <button type="submit" class="btn btn-outline btn-success w-1/2">Save</button>
+      </div>
+
+    </form>
+  </div>
+
+</app-modal>
