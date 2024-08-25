@@ -8,7 +8,7 @@
 - [x] build list incomes feature
 - [x] build income total feature
 - [x] build income modal feature
-## - [ ] fix tests (with spectator lib)
+- [x] fix tests (with spectator lib)
 - [ ] build input expense feature
 - [ ] build list expenses feature
 - [ ] build expense total feature
