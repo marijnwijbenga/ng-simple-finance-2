@@ -1,0 +1,16 @@
+<app-list-item
+  class="cursor-pointer"
+  [ngClass]="{
+    'bg-green-200 text-green-900 hover:bg-green-300' : transactionType === 'income',
+    'bg-red-200 text-red-900 hover:bg-red-300' : transactionType === 'expense',
+  }"
+>
+  <div class="max-w-52">
+    <span id="transactionName">{{ transactionItem.name }}</span>
+  </div>
+  <div>
+    <span id="transactionAmount">
+      &euro; {{ transactionItem.amount }}
+    </span>
+  </div>
+</app-list-item>

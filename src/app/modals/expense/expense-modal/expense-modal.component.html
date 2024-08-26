@@ -1,0 +1,46 @@
+<app-modal (closeModal)="onCloseModal()">
+  <div class="px-6 pt-4 pb-2 bg-red-50">
+    <h2 class="text-2xl text-red-800">Edit expense</h2>
+  </div>
+  <div class="px-6  pt-2 pb-4 bg-red-50 h-full w-full">
+    <form [formGroup]="expenseForm" class="flex flex-col gap-2" (ngSubmit)="onSubmit()">
+      <label
+        class="input input-bordered flex items-center gap-2 font-semibold text-red-800">
+        Name
+        <input
+          type="text" class="grow text-black font-normal "
+          formControlName="expenseName"
+        />
+      </label>
+
+      <label class="input input-bordered flex items-center gap-2 font-bold text-red-800">
+        &euro;
+        <input
+          type="number"
+          class="grow text-black font-normal"
+          formControlName="expenseAmount" />
+      </label>
+
+      <select
+        class="select select-bordered w-full max-w-xs font-normal text-black"
+        formControlName="expenseInterval"
+      >
+        <option disabled [defaultSelected]="!expenseService.getTransaction(expenseIndex).recurringInterval">Repeats</option>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="bi-weekly">Bi-Weekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="bi-monthly">Bi-Monthly</option>
+        <option value="yearly">Yearly</option>
+        <option value="bi-yearly">Bi-yearly</option>
+      </select>
+
+      <div class="flex flex-row my-4">
+        <button type="reset" class="btn btn-outline btn-secondary w-1/2" (click)="onCloseModal()">Cancel</button>
+        <button type="submit" class="btn btn-outline btn-error w-1/2">Save</button>
+      </div>
+
+    </form>
+  </div>
+
+</app-modal>
