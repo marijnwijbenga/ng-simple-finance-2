@@ -1,17 +1,40 @@
 <div class="flex flex-col max-w-screen-2xl mx-auto">
   <div class="flex flex-row justify-center mb-2">balance here</div>
   <div class="flex flex-row justify-around flex-wrap">
+
     <div class="min-w-min">
-      <app-income-form></app-income-form>
-      <app-income-list
-        [incomeItems]="incomeService.incomeList()"
+      <app-transaction-form
+        transactionType="income"
+        [placeholder]="'Income; amount'"
+        (formValue)="onSubmitIncome($event)"
+        [formInputError]="incomeFormError"
+        [resetForm]="resetIncomeForm()"
+        [errorText]="'Please add as: Income; amount (Rent; 1500)'"
+      ></app-transaction-form>
+      <app-transaction-total [transactionTotal]="incomeService.incomeTotal()" transactionType="income"></app-transaction-total>
+      <app-transaction-list
+        transactionType="income"
+        [transactionItems]="incomeService.incomeList()" d
         (clickItem)="onShowIncomeModal($event)"
-      ></app-income-list>
-      <app-income-total></app-income-total>
+      ></app-transaction-list>
     </div>
-    <div>
-      <input type="text" placeholder="Add expense" class="input input-bordered" />
-      <button class="btn bg-error">Add</button>
+
+    <div class="min-w-min">
+      <app-transaction-form
+        transactionType="expense"
+        [placeholder]="'Expense; amount'"
+        (formValue)="onSubmitExpense($event)"
+        [formInputError]="expenseFormError"
+        [resetForm]="resetExpenseForm()"
+        [errorText]="'Please add as: Expense; amount (Rent; 1500)'"
+      ></app-transaction-form>
+      <app-transaction-total [transactionTotal]="expenseService.expenseTotal()" transactionType="expense"></app-transaction-total>
+      <app-transaction-list
+        transactionType="expense"
+        [transactionItems]="expenseService.expenseList()"
+        (clickItem)="onShowExpenseModal($event)"
+      >
+      </app-transaction-list>
     </div>
     <div>
       <input type="text" placeholder="Add saving" class="input input-bordered" />
@@ -23,5 +46,11 @@
 <app-income-modal
   *ngIf="showIncomeModal()"
   [incomeIndex]="selectedIncomeIndex()!"
-  (closeModal)="onCloseModal()"
+  (closeModal)="onCloseIncomeModal()"
 ></app-income-modal>
+
+<app-expense-modal
+  *ngIf="showExpenseModal()"
+  [expenseIndex]="selectedExpenseIndex()!"
+  (closeModal)="onCloseExpenseModal()"
+></app-expense-modal>

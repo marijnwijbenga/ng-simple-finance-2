@@ -1,0 +1,14 @@
+<div
+  class="flex flex-row justify-between text-lg font-semibold  p-2 mt-3 mb-4"
+  [ngClass]="{
+  'text-green-800 bg-green-100' : transactionType === 'income',
+  'text-red-800 bg-red-100' : transactionType === 'expense'
+  }"
+>
+  <div>
+    <h2>Total per month</h2>
+  </div>
+  <div>
+    <span>&euro; {{ transactionTotal() }}</span>
+  </div>
+</div>

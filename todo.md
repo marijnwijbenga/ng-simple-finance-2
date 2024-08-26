@@ -9,6 +9,7 @@
 - [x] build income total feature
 - [x] build income modal feature
 - [x] fix tests (with spectator lib)
+- [ ] build delete transaction function 
 - [ ] build input expense feature
 - [ ] build list expenses feature
 - [ ] build expense total feature

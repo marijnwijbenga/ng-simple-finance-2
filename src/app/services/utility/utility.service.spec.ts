@@ -74,7 +74,7 @@ describe('UtilityService', () => {
     expect(spectator.service.calculateMonthlyAmount(testTransaction)).toEqual(200);
   });
 
-  it('should return transaction.amount recurringInterval is monthly', () => {
+  it('should return income.amount recurringInterval is monthly', () => {
     const testTransaction: TransactionItemInterface = {
       name: 'testTransaction',
       amount: 100,
@@ -84,7 +84,7 @@ describe('UtilityService', () => {
     expect(spectator.service.calculateMonthlyAmount(testTransaction)).toEqual(100);
   });
 
-  it('should return transaction.amount recurringInterval is biyearly', () => {
+  it('should return income.amount recurringInterval is biyearly', () => {
     const testTransaction: TransactionItemInterface = {
       name: 'testTransaction',
       amount: 100,
@@ -94,7 +94,7 @@ describe('UtilityService', () => {
     expect(spectator.service.calculateMonthlyAmount(testTransaction)).toEqual(16.666666666666664);
   })
 
-  it('should return transaction.amount recurringInterval is yearly', () => {
+  it('should return income.amount recurringInterval is yearly', () => {
     const testTransaction: TransactionItemInterface = {
       name: 'testTransaction',
       amount: 100,

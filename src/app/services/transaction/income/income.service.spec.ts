@@ -1,6 +1,6 @@
 import { createServiceFactory, mockProvider, SpectatorService } from '@ngneat/spectator/jest';
 import { IncomeService } from './income.services';
-import { LocalStorageService } from '../local-storage/local-storage.service';
+import { LocalStorageService } from '../../local-storage/local-storage.service';
 
 describe('IncomeService', () => {
   let spectator: SpectatorService<IncomeService>;
@@ -36,7 +36,7 @@ describe('IncomeService', () => {
 
 
   it('should return a single income from getIncome', () => {
-    spectator.service.addIncome({
+    spectator.service.addTransaction({
       name: 'test name 3',
       amount: 200,
       recurringInterval: 'monthly',
@@ -44,7 +44,7 @@ describe('IncomeService', () => {
 
     const incomeListIndex = 2;
 
-    expect(spectator.service.getIncome(incomeListIndex)).toEqual({
+    expect(spectator.service.getTransaction(incomeListIndex)).toEqual({
       name: 'test name 3',
       amount: 200,
       recurringInterval: 'monthly',
@@ -52,13 +52,13 @@ describe('IncomeService', () => {
   });
 
   it('should add an income', () => {
-    spectator.service.addIncome({
+    spectator.service.addTransaction({
       name: 'test name 5',
       amount: 200,
       recurringInterval: 'weekly',
     });
 
-    expect(spectator.service.getIncome(2)).toEqual({
+    expect(spectator.service.getTransaction(2)).toEqual({
       name: 'test name 5',
       amount: 200,
       recurringInterval: 'weekly',
@@ -66,14 +66,14 @@ describe('IncomeService', () => {
   });
 
   it('should set the default interval to monthly', () => {
-    spectator.service.addIncome({
+    spectator.service.addTransaction({
       name: 'test name 6',
       amount: 200,
     });
 
     const incomeListIndex = 2;
 
-    expect(spectator.service.getIncome(incomeListIndex)).toEqual({
+    expect(spectator.service.getTransaction(incomeListIndex)).toEqual({
       name: 'test name 6',
       amount: 200,
       recurringInterval: 'monthly',
@@ -82,13 +82,13 @@ describe('IncomeService', () => {
 
   it('should patch an income with new values', () => {
     const listIndex = 0;
-    spectator.service.patchIncome(listIndex, {
+    spectator.service.patchTransaction(listIndex, {
       name: 'test name 6',
       amount: 200,
       recurringInterval: 'monthly',
     });
 
-    expect(spectator.service.getIncome(listIndex)).toEqual({
+    expect(spectator.service.getTransaction(listIndex)).toEqual({
       name: 'test name 6',
       amount: 200,
       recurringInterval: 'monthly',
@@ -102,7 +102,7 @@ describe('IncomeService', () => {
 
     const listIndex = 0;
 
-    spectator.service.patchIncome(listIndex, {
+    spectator.service.patchTransaction(listIndex, {
       name: 'test name 6',
       amount: 900,
       recurringInterval: 'monthly',

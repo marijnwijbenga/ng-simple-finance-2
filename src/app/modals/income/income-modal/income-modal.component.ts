@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { ModalComponent } from '../../ui/common/modal/modal.component';
-import { IncomeService } from '../../../services/income/income.services';
+import { ModalComponent } from '../../../components/ui/common/modal/modal.component';
+import { IncomeService } from '../../../services/transaction/income/income.services';
 import { NgIf } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
@@ -35,7 +35,7 @@ export class IncomeModalComponent implements OnInit {
   });
 
   onSubmit(): void {
-    this.incomeService.patchIncome(this.incomeIndex, {
+    this.incomeService.patchTransaction(this.incomeIndex, {
       name: this.incomeForm.get('incomeName')?.value,
       amount: this.incomeForm.get('incomeAmount')?.value,
       recurringInterval: this.incomeForm.get('incomeInterval')?.value,
@@ -45,7 +45,7 @@ export class IncomeModalComponent implements OnInit {
   }
 
   populateForm(): void {
-    const income = this.incomeService.getIncome(this.incomeIndex);
+    const income = this.incomeService.getTransaction(this.incomeIndex);
 
     if (income.name) {
       this.incomeForm.patchValue({

@@ -22,10 +22,10 @@
       </label>
 
         <select
-          class="select select-success w-full max-w-xs font-normal text-black"
+          class="select   w-full max-w-xs font-normal text-black"
           formControlName="incomeInterval"
         >
-          <option disabled [defaultSelected]="!incomeService.getIncome(incomeIndex).recurringInterval">Repeats</option>
+          <option disabled [defaultSelected]="!incomeService.getTransaction(incomeIndex).recurringInterval">Repeats</option>
           <option value="daily">Daily</option>
           <option value="weekly">Weekly</option>
           <option value="bi-weekly">Bi-Weekly</option>
