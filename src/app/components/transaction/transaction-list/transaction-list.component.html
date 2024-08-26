@@ -1,0 +1,9 @@
+<app-list>
+  <app-transaction-list-item
+    *ngFor="let transactionItem of transactionItems(); let index = index"
+    [transactionItem]="transactionItem"
+    [transactionType]="transactionType"
+    (click)="onItemClicked(index)"
+  >
+  </app-transaction-list-item>
+</app-list>

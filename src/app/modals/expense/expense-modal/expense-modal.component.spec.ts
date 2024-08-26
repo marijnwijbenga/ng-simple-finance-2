@@ -1,18 +1,18 @@
-import { IncomeModalComponent } from './income-modal.component';
+import { ExpenseModalComponent } from './expense-modal.component';
 import { createComponentFactory, mockProvider, Spectator } from '@ngneat/spectator/jest';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalComponent } from '../../ui/common/modal/modal.component';
-import { IncomeService } from '../../../services/income/income.services';
+import { ModalComponent } from '../../../components/ui/common/modal/modal.component';
+import { ExpenseService } from '../../../services/transaction/expense/expense.service';
 import spyOn = jest.spyOn;
 
-describe('IncomeModalComponent', () => {
-  let spectator: Spectator<IncomeModalComponent>;
+describe('ExpenseModalComponent', () => {
+  let spectator: Spectator<ExpenseModalComponent>;
   const createComponent = createComponentFactory({
-    component: IncomeModalComponent,
+    component: ExpenseModalComponent,
     imports: [ReactiveFormsModule, ModalComponent],
     providers: [
-      mockProvider(IncomeService, {
-        getIncome: jest.fn().mockReturnValue({
+      mockProvider(ExpenseService, {
+        getTransaction: jest.fn().mockReturnValue({
           name: 'test name',
           amount: 200,
           recurringInterval: 'monthly',
@@ -24,7 +24,7 @@ describe('IncomeModalComponent', () => {
   beforeEach(() => {
     spectator = createComponent({
       props: {
-        incomeIndex: 3,
+        expenseIndex: 3,
       }
     });
   })
@@ -48,12 +48,11 @@ describe('IncomeModalComponent', () => {
   it('should call submit', () => {
     const onSubmitSpy = spyOn(spectator.component, 'onSubmit');
 
-    spectator.typeInElement('Test Income', 'input[formControlName="incomeName"]');
-    spectator.typeInElement('1000', 'input[formControlName="incomeAmount"]');
-    spectator.selectOption('select[formControlName="incomeInterval"]', 'monthly');
+    const submitButton = spectator.query('button[type="submit"]') as HTMLButtonElement;
 
-    spectator.triggerEventHandler('form', 'ngSubmit', { preventDefault: () => {} });
+    spectator.click(submitButton);
 
     expect(onSubmitSpy).toHaveBeenCalled();
   });
+
 });
