@@ -1,6 +1,9 @@
 # NG Simple Finance 2
 
-A simple personal finance app built with Angular 17. The goal of this project is to manage your personal finances by tracking income, expenses, and savings goals, with a focus on clean UI and simple functionality.
+A simple Finance app built with Angular 18, completely zoneless with Signals Woohoo! Exciting times :)  
+
+
+A simple personal finance app built with Angular 18. The goal of this project is to manage your personal finances by tracking income, expenses, and savings goals, with a focus on clean UI and simple functionality.
 
 ## Features
 
