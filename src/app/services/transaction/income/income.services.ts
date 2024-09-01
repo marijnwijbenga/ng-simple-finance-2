@@ -10,6 +10,9 @@ import { TransactionService } from '../transaction.service';
 })
 export class IncomeService extends TransactionService {
 
+  #incomeList: WritableSignal<TransactionItemInterface[]> = signal<TransactionItemInterface[]>([]);
+  public readonly incomeList = this.#incomeList.asReadonly();
+
   constructor(
     localStorageService: LocalStorageService,
     utilityService: UtilityService,
@@ -20,8 +23,6 @@ export class IncomeService extends TransactionService {
     this.setupLocalStorageWriteTrigger('SFIncomeList', this.#incomeList);
   }
 
-  #incomeList: WritableSignal<TransactionItemInterface[]> = signal<TransactionItemInterface[]>([]);
-  public readonly incomeList = this.#incomeList.asReadonly();
   public incomeTotal = this.calculateTotal(this.#incomeList);
 
   addTransaction(income: TransactionItemInterface): void {

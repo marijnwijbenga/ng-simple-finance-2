@@ -14,5 +14,6 @@ describe('TransactionService', () => {
     expect(service).toBeTruthy();
   });
 
-  // todo write tests for functions here
+  // todo write tests for functions here: initiate class from abstract to test with
+
 });

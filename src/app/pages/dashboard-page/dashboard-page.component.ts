@@ -3,7 +3,6 @@ import { ListItemComponent } from '../../components/ui/common/list-item/list-ite
 import { ListComponent } from '../../components/ui/common/list/list.component';
 import { IncomeService } from '../../services/transaction/income/income.services';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IncomeTotalComponent } from '../../components/income/income-total/income-total.component';
 import { IncomeModalComponent } from '../../modals/income/income-modal/income-modal.component';
 import { NgIf } from '@angular/common';
 import { TransactionFormComponent } from '../../components/transaction/transaction-form/transaction-form.component';
@@ -19,7 +18,6 @@ import { TransactionTotalComponent } from '../../components/transaction/transact
     ListComponent,
     ListItemComponent,
     ReactiveFormsModule,
-    IncomeTotalComponent,
     IncomeModalComponent,
     NgIf,
     TransactionFormComponent,
@@ -43,6 +41,8 @@ export class DashboardPageComponent {
 
   showIncomeModal: WritableSignal<boolean> = signal(false);
   selectedIncomeIndex: WritableSignal<number | null> = signal(null);
+
+
 
   onShowIncomeModal($event: number) {
     this.selectedIncomeIndex.set($event)

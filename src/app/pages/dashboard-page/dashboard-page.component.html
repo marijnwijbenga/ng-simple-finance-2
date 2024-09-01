@@ -9,12 +9,12 @@
         (formValue)="onSubmitIncome($event)"
         [formInputError]="incomeFormError"
         [resetForm]="resetIncomeForm()"
-        [errorText]="'Please add as: Income; amount (Rent; 1500)'"
+        [errorText]="'Please add as: Income; amount (Webdev; 3500)'"
       ></app-transaction-form>
       <app-transaction-total [transactionTotal]="incomeService.incomeTotal()" transactionType="income"></app-transaction-total>
       <app-transaction-list
         transactionType="income"
-        [transactionItems]="incomeService.incomeList()" d
+        [transactionItems]="incomeService.incomeList()"
         (clickItem)="onShowIncomeModal($event)"
       ></app-transaction-list>
     </div>
@@ -36,10 +36,7 @@
       >
       </app-transaction-list>
     </div>
-    <div>
-      <input type="text" placeholder="Add saving" class="input input-bordered" />
-      <button class="btn bg-info">Add</button>
-    </div>
+
   </div>
 </div>
 
